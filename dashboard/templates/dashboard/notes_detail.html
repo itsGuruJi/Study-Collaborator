@@ -1,0 +1,67 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+{% load static %}
+
+<section class='text-center container'>
+    <div class="container">
+        <div class="content-section p-0 mt-5">
+            <div class="m-3">
+                <h2>{{ notes.title }}</h2>
+            </div>
+            <hr class="p-0 m-0">
+            <p class="description m-5 p-5">
+                {{ notes.desc }}
+            </p>
+            <hr>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+
+<style>
+    .container {
+        max-width: 80%;
+        margin: auto;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        transition: transform 0.2s ease;
+    }
+
+    .container:hover {
+        transform: scale(1.02);
+    }
+
+    h2 {
+        font-size: 2em;
+        color: #007bff;
+        margin-bottom: 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    hr {
+        border: none;
+        height: 1px;
+        background-color: #ddd;
+    }
+
+    .description {
+        font-size: 1.2em;
+        color: #555;
+        line-height: 1.6;
+        text-align: justify;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            max-width: 95%;
+        }
+
+        .description {
+            font-size: 1em;
+        }
+    }
+</style>

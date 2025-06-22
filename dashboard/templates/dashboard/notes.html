@@ -1,0 +1,157 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container">
+    <!-- Display messages -->
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Notes List -->
+    <div class="row">
+        {% for note in notes %}
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">{{ note.title }}</div>
+                <div class="card-body">{{ note.desc }}</div>
+                <div class="card-footer">
+                    <!-- Delete functionality -->
+                    <a href="{% url 'delete_note' note.id %}" class="btn btn-danger">
+                        Delete
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Note Creation Form -->
+    <div class="container mt-4">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend>Create Note</legend>
+            </fieldset>
+            {{ form|crispy }}
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Create Note</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Main container styling */
+    .container {
+        max-width: 100%;  /* Set to full screen width */
+        margin: auto;
+    }
+
+    /* Card styling for full width */
+    .card {
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+        width: 100%;  /* Full width of container */
+        margin-bottom: 30px;  /* More space between cards */
+    }
+
+    .card:hover {
+        transform: scale(1.02);  /* Slightly less intense zoom */
+    }
+
+    /* Larger title with improved padding */
+    .card-header {
+        font-weight: bolder;
+        font-size: 2em;  /* Increased title font size */
+        background-color: #007bff;
+        color: #fff;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 20px;  /* Increased padding */
+        
+    }
+
+    /* Larger description box */
+    .card-body {
+        padding: 25px;
+        font-size: 1.5em;  /* Increased description font size */
+        color: #333;
+    }
+
+    /* Footer improvements */
+    .card-footer {
+        display: flex;
+        justify-content: flex-end;
+        padding: 15px;
+        background-color: #f1f1f1;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    /* Expanding text boxes */
+    textarea, input[type="text"], input[type="email"], select {
+        width: 100%;  /* Full width of the container */
+        padding: 12px;  /* Increase padding for better visibility */
+        font-size: 1.2em;  /* Larger font size */
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        margin-bottom: 15px;  /* Space between inputs */
+    }
+
+    /* Specifically target textarea for larger height */
+    textarea {
+        height: 150px;  /* Increase height of the textarea */
+        resize: vertical;  /* Allow vertical resizing */
+    }
+
+    /* Center-align form labels */
+    .form-group label {
+        display: block;       /* Ensure each label is on its own line */
+        text-align: center;   /* Center-align the label text */
+        font-weight: bold;    /* Make the label text bold */
+        font-size: 1.2em;     /* Increase the font size for better visibility */
+        margin-bottom: 10px;  /* Add spacing below each label */
+    }
+
+    /* Center-align the form heading and button */
+    .form-group {
+        text-align: center;
+    }
+
+    .form-group legend {
+        color: #007bff;
+        font-size: 2em;
+        border-bottom: 3px solid #007bff;
+        padding-bottom: 12px;
+        margin-bottom: 20px;
+        display: inline-block;
+    }
+
+    .form-group .btn {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 10px 20px;
+    }
+
+    /* Adjust row and column spacing */
+    .row {
+        margin-top: 20px;
+    }
+
+    .col-md-3 {
+        margin-bottom: 30px;
+        width: 100%;  /* Full-width columns */
+    }
+    
+</style>
+
+
+{% endblock content %}
